@@ -3,28 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getMyFavourite } from '../../features/action/userAction';
 
-export default function UserDropdown({ handleLogout ,currentUser, handleDropDown}) {
+export default function UserDropdown({ handleLogout, currentUser, handleDropDown }) {
   const [open, setOpen] = useState(false);
-
   const dropdownRef = useRef();
   const dispatch = useDispatch();
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getMyFavourite())
-  },[dispatch])
+  }, [dispatch])
 
-  const { favourite , loading } = useSelector(
+  const { favourite, loading } = useSelector(
     (state) => state.user
   );
-// console.log(favourite);
 
-  const count= favourite?.length
-  // // console.log(count);
-  
-  // // console.log(currentUser.image.image);
-  
+  const count = favourite?.length
+
   useEffect(() => {
-
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setOpen(false);
@@ -33,97 +27,133 @@ export default function UserDropdown({ handleLogout ,currentUser, handleDropDown
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
-  
-  // const handleLogout = () => {
-  //   dispatch(logout());                   // clear redux + localStorage
-  //   handleSuccess("Logout Successfully"); // show toast after state clears
-  //   setTimeout(() => {
-  //     navigate("/login");
-  //   }, 3000);
-  // }
 
   return (
-    <div className=" relative flex items-center gap-2 z-10  transition-all
-         ease-in-out  duration-300 delay-100" ref={dropdownRef}>
-      {/* Icons */}
+    <div className="relative flex items-center gap-2 z-50 transition-all ease-in-out duration-300" ref={dropdownRef}>
+      
+      {/* User Trigger */}
       <div
-      onClick={() => setOpen(!open)}
-      className='md:w-max w-[100%] p-1 md:hover:bg-transparent md:hover:text-blue-950 hover:bg-blue-950 hover:text-white  transition-all
-         ease-in-out  duration-300 delay-100'>
-
-      <i className="fa-regular fa-user text-2xl cursor-pointer" onClick={() => setOpen(!open)}></i>
-      <i
-        className={`fa-solid ${open ? 'fa-angle-up' : 'fa-angle-down'} text-2xl cursor-pointer`}
-        
-        ></i>
+        onClick={() => setOpen(!open)}
+        className='flex items-center gap-2 p-2 rounded-lg hover:bg-blue-50 cursor-pointer transition-all duration-200 border border-transparent hover:border-blue-200'
+      >
+        <div className="relative">
+          {currentUser?.image ? (
+            <img 
+              src={currentUser?.image?.image} 
+              className='w-8 h-8 rounded-full object-cover border-2 border-blue-500'
+              alt="Profile" 
+            />
+          ) : (
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              <i className='fa-solid fa-user text-white text-sm'></i>
+            </div>
+          )}
         </div>
+        
+        <i
+          className={`fa-solid ${open ? 'fa-angle-up' : 'fa-angle-down'} text-blue-600 text-sm transition-transform duration-200`}
+        ></i>
+      </div>
 
       {/* Dropdown Menu */}
       {open && (
-        <div className="absolute top-full right-0 bg-white border shadow-md rounded-lg sm:w-[300px] w-[250px] z-[10000]  transition-all
-          ease-in-out  duration-300 delay-100">
-          <div className='flex items-center pl-4 pt-5 gap-5'>
-{
-currentUser?.image? (
-<img src={currentUser?.image?.image}
-            className='w-[100px] rounded-full'
-            alt="" />):
-            (    <i className='fa-solid fa-user text-5xl text-blue-950 p-3'></i> )
-            }
-            <p className='font-bold'>{`${currentUser?.firstName} ${currentUser?.lastName}`}</p>
-
-            {/* <i className='fa-solid fa-pen  outline-2 outline-offset-5 rounded-full absolute left-[35%] top-[10%] text-green-600 '></i> */}
+        <div className="absolute top-full right-0 bg-white border border-gray-200 shadow-xl rounded-2xl w-80 z-50 overflow-hidden transition-all duration-300 ease-out animate-in fade-in-0 zoom-in-95">
+          
+          {/* User Header Section */}
+          <div className='bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white'>
+            <div className='flex items-center gap-4'>
+              {currentUser?.image ? (
+                <img 
+                  src={currentUser?.image?.image}
+                  className='w-16 h-16 rounded-full object-cover border-4 border-white/30'
+                  alt="Profile" 
+                />
+              ) : (
+                <div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center border-4 border-white/30">
+                  <i className='fa-solid fa-user text-white text-2xl'></i>
+                </div>
+              )}
+              <div className='flex-1 min-w-0'>
+                <p className='font-bold text-lg truncate'>{`${currentUser?.firstName} ${currentUser?.lastName}`}</p>
+                <p className='text-blue-100 text-sm truncate'>{currentUser?.email}</p>
+              </div>
+            </div>
           </div>
-          <ul className="py-2 text-gray-700">
-            <li>
-              <Link
-                to={`/public-profile/${currentUser?._id}`}
-                className="block px-4 py-2 hover:bg-blue-100"
-                onClick={() => {setOpen(false); handleDropDown}}
-              >
-                My Profile
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/myAds"
-                className="block px-4 py-2 hover:bg-blue-100"
-                onClick={() => {setOpen(false); handleDropDown}}
-              >
-                My Ads
-              </Link>
-            </li>
-            <li className='relative'>
-              <Link
-                to="/myfavourite"
-                className="block px-4 py-2 hover:bg-blue-100"
-                onClick={() => {setOpen(false); handleDropDown}}
-              >
-                My Favourite
-              </Link>
-{ count>0 &&
-              <div className=' text-center absolute top-[20%] right-2 outline-2 outline-red-600 text-red-600 w-6 rounded-full'>
-                <p>{count}</p>
-              </div>}
-            </li>
-            <li>
-              <Link
-                to="/manage-profile"
-                className="block px-4 py-2 hover:bg-blue-100"
-                onClick={() => {setOpen(false); handleDropDown}}
-              >
-                Manage Profile
-              </Link>
-            </li>
-            <li>
+
+          {/* Menu Items */}
+          <div className="p-2">
+            <ul className="space-y-1">
+              <li>
+                <Link
+                  to={`/public-profile/${currentUser?._id}`}
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-all duration-200 group"
+                  onClick={() => { setOpen(false); handleDropDown }}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-500 transition-colors">
+                    <i className="fa-solid fa-user text-blue-500 text-sm group-hover:text-white"></i>
+                  </div>
+                  <span className="font-medium">My Profile</span>
+                </Link>
+              </li>
+              
+              <li>
+                <Link
+                  to="/myAds"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-all duration-200 group"
+                  onClick={() => { setOpen(false); handleDropDown }}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center group-hover:bg-green-500 transition-colors">
+                    <i className="fa-solid fa-rectangle-ad text-green-500 text-sm group-hover:text-white"></i>
+                  </div>
+                  <span className="font-medium">My Ads</span>
+                </Link>
+              </li>
+              
+              <li className='relative'>
+                <Link
+                  to="/myfavourite"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-all duration-200 group"
+                  onClick={() => { setOpen(false); handleDropDown }}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center group-hover:bg-red-500 transition-colors">
+                    <i className="fa-solid fa-heart text-red-500 text-sm group-hover:text-white"></i>
+                  </div>
+                  <span className="font-medium">My Favourite</span>
+                  {count > 0 && (
+                    <div className='absolute right-4 top-1/2 transform -translate-y-1/2 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center animate-pulse'>
+                      {count}
+                    </div>
+                  )}
+                </Link>
+              </li>
+              
+              <li>
+                <Link
+                  to="/manage-profile"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 text-gray-700 hover:text-blue-600 transition-all duration-200 group"
+                  onClick={() => { setOpen(false); handleDropDown }}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center group-hover:bg-purple-500 transition-colors">
+                    <i className="fa-solid fa-gear text-purple-500 text-sm group-hover:text-white"></i>
+                  </div>
+                  <span className="font-medium">Manage Profile</span>
+                </Link>
+              </li>
+            </ul>
+
+            {/* Logout Button */}
+            <div className="border-t border-gray-100 mt-2 pt-2">
               <button
                 onClick={handleLogout}
-                className="w-full text-left px-4 py-2 hover:bg-blue-100"
+                className="flex items-center gap-3 w-full px-4 py-3 rounded-xl hover:bg-red-50 text-gray-700 hover:text-red-600 transition-all duration-200 group"
               >
-                <i className="fa-solid fa-right-from-bracket mr-2"></i> Logout
+                <div className="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center group-hover:bg-red-500 transition-colors">
+                  <i className="fa-solid fa-right-from-bracket text-red-500 text-sm group-hover:text-white"></i>
+                </div>
+                <span className="font-medium">Logout</span>
               </button>
-            </li>
-          </ul>
+            </div>
+          </div>
         </div>
       )}
     </div>

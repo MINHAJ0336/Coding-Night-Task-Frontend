@@ -20,20 +20,7 @@ export default function NavBar() {
     useEffect(() => {
 
         dispatch(checkUser())
-        // const handelbar = () => {
-        //     if (window.scrollY > 200) {
-        //         setsstickybar(true);
-        //     }
-        //     else {
-        //         setsstickybar(false);
-        //     }
-        // }
-        // window.addEventListener("scroll", handelbar);
 
-        // // cleanup
-        // return () => {
-        //     window.removeEventListener("scroll", handelbar);
-        // };
 
     }, []);
 

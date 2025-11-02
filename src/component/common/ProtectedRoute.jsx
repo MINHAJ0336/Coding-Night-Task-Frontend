@@ -1,45 +1,47 @@
+// import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import Loader from "./loader";
+// import { useDispatch, useSelector } from "react-redux";
+// import { checkUser } from "../../features/action/authAction";
+
+
+// export default function ProtectedRoute({children}){
+//     const dispatch=useDispatch();
+//     const{loading, IsLogin}= useSelector((state)=>state.auth)
+//     const navigate = useNavigate()
+// useEffect(()=>{
+// dispatch(checkUser())
+// },[dispatch])
+    
+//     if(loading) return <Loader/>
+//     if(!IsLogin){
+//         return navigate('/login')
+//     }
+//     return children;
+// }
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "./loader";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUser } from "../../features/action/authAction";
 
-
 export default function ProtectedRoute({children}){
-    // const [loading, setLoading] = useState(true)
-    // const [isAuth, setIsAuth] = useState(false)
-    const dispatch=useDispatch();
-    const{loading, IsLogin}= useSelector((state)=>state.auth)
-    const navigate = useNavigate()
-useEffect(()=>{
-dispatch(checkUser())
-},[dispatch])
-    // const checkUser = async ()=>{
-    //     // console.log("here")
-    //     const response = await fetch('https://swapy-backend.vercel.app/authMe', {
-    //         method: "GET",
-    //         credentials : 'include'
-    //     })
-    //     // console.log(response, " response1")
-    //     if(response.ok){
-    //         // console.log(response, "response2")
-    //         setIsAuth(true)
-    //         setLoading(false)
-    //         return response
-    //     }else{
-    //         setLoading(false)
-    //         return null
-    //     }
-    // }
+    const dispatch = useDispatch();
+    const { loading, IsLogin } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        dispatch(checkUser());
+    }, [dispatch]);
 
+    useEffect(() => {
+        if (!loading && !IsLogin) {
+            navigate('/login');
+        }
+    }, [loading, IsLogin, navigate]);
 
-    // useEffect( ()=>{
-    //     checkUser()
-    // },[])
-
-    if(loading) return <Loader/>
-    if(!IsLogin){
-        return navigate('/login')
-    }
+    if (loading) return <Loader/>
+    if (!IsLogin) return null; // Ya <Loader/> ya empty div
+    
     return children;
 }

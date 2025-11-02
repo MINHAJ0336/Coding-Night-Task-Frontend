@@ -6,115 +6,175 @@ import { useDispatch, useSelector } from 'react-redux';
 import { checkUser, logout } from '../../features/action/authAction';
 
 export default function Nav() {
-    const [showBar, SetBar]=useState(false);
-    const [showDown, SetshowDown]=useState(false);
-        const dispatch = useDispatch();
+    const [showBar, SetBar] = useState(false);
+    const [showDown, SetshowDown] = useState(false);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { currentUser, loading, message, messageType} = useSelector((state)=>state.auth);
-// // console.log(currentUser);
+    const { currentUser, loading, message, messageType } = useSelector((state) => state.auth);
 
     useEffect(() => {
-
         dispatch(checkUser())
-
     }, []);
 
-const handleLogout = () => {
-  dispatch(logout());                   // clear redux + localStorage
-  setTimeout(() => {
-    handleSuccess("Logout Successfully"); // show toast after state clears
-    navigate("/login");
-  }, 3000);
-}
-const handleDropDown = () => {
-  SetBar(!showBar);
-}
-  return (
-    <div className='flex h-15 justify-center items-center bg-blue-50'>
-    <div className='md:w-[90%] w-[100%]  flex flex-row justify-between items-center relative transition-all ease-in duration-300 '>
+    const handleLogout = () => {
+        dispatch(logout());
+        setTimeout(() => {
+            handleSuccess("Logout Successfully");
+            navigate("/login");
+        }, 3000);
+    }
 
-      <div className=' md:w-[25%] flex flex-col justify-between items-center'>
-        <Link className='flex items-center flex-col px-5 md:hover:text-blue-950' to={'/'}>
-                           <p className='text-3xl font-extrabold'>Swapy</p>
-                       </Link>
-      </div>
-      <button
-      onClick={()=> SetBar(!showBar)}
-      className='md:hidden'>
-        <i className='fa-solid fa-bars text-2xl'></i>
+    const handleDropDown = () => {
+        SetBar(!showBar);
+    }
 
-      </button>
+    return (
+        <div className='w-full bg-white border-b border-gray-200 shadow-sm'>
+            <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+                <div className='flex justify-between items-center h-16'>
+                    
+                    {/* Left Side - Logo */}
+                    <div className='flex items-center'>
+                        <Link className='flex items-center' to={'/'}>
+                            <div className='flex items-center space-x-2'>
+                                {/* Logo Image - آپ اپنی logo image کا path دیں */}
+                                <img 
+                                    src="/logo.png" 
+                                    alt="Logo" 
+                                    className="h-8 w-8"
+                                    onError={(e) => {
+                                        e.target.style.display = 'none';
+                                        e.target.nextSibling.style.display = 'block';
+                                    }}
+                                />
+                                
+                                <span className='text-xl font-bold text-gray-900'>Project Managment System</span>
+                            </div>
+                        </Link>
+                    </div>
 
-        <div className={` w-full flex md:items-center justify-end md:flex-row md:gap-10 flex-col md:relative absolute
-         transition-all
-         md:top-0 top-12 ease-in-out  duration-300 delay-100 bg-blue-50 z-10
-       ${showBar ?   "opacity-100 translate-y-0 visible scale-100 z-100" 
-  : "opacity-0  -translate-y-2 invisible md:opacity-100 md:translate-y-0 md:visible md:scale-100 scale-95 "}
-            `}>
-<Link
-to={'/'}
-onClick={() => { SetBar(false) }}
-className='p-1 md:hover:bg-transparent md:hover:text-blue-950 hover:bg-blue-950 hover:text-white'>
-<i className='text-2xl fa-regular fa-home'></i>
-</Link>
+                    {/* Center - Navigation Links */}
+                    <div className='hidden md:flex items-center space-x-8'>
+                        <Link 
+                            to={'/motors'} 
+                            className='flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition duration-200'
+                        >
+                            
+                            <span className='font-medium'>Home</span>
+                        </Link>
+                        
+                        <Link 
+                            to={'/doctors-team'} 
+                            className='flex items-center space-x-1 text-gray-700 hover:text-blue-600 transition duration-200'
+                        >
+                            
+                            <span className='font-medium'>Doctor Team</span>
+                        </Link>
 
+                        {/* Additional links as per image */}
+                        <Link 
+                            to={'/mobile-phones'} 
+                            className='text-gray-700 hover:text-blue-600 font-medium transition duration-200'
+                        >
+                            Services
+                        </Link>
+                        
+                        <Link 
+                            to={'/electronics'} 
+                            className='text-gray-700 hover:text-blue-600 font-medium transition duration-200'
+                        >
+                            Facilities
+                        </Link>
+                    </div>
 
-{currentUser?.role=="user" ?(
-    <>
-<Link
-to={'/chats'}
-onClick={() => { SetBar(false) }}
-className='p-1 md:hover:bg-transparent md:hover:text-blue-950 hover:bg-blue-950 hover:text-white'>
-<i className='text-2xl fa-regular fa-comment'></i>
-</Link>
-   <UserDropdown  currentUser={currentUser} handleLogout={handleLogout} handleDropDown={handleDropDown}/>
-    </>
+                    {/* Right Side - User Actions */}
+                    <div className='flex items-center space-x-4'>
+                        
+                        {/* Sell Button */}
+                        <Link 
+                            to={'/sellproduct'} 
+                            className='bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg font-medium text-sm flex items-center space-x-1 transition duration-200'
+                        >
+                            <i className='fa-solid fa-plus text-xs'></i>
+                            <span>Reports Upload</span>
+                        </Link>
 
-):
-//     <div className='p-1 relative transition-all
-//           ease-in-out  duration-500 z-50'>
-// <div
-// onClick={()=> SetshowDown(!showDown)}
-// className='text-black p-1 md:hover:bg-transparent md:hover:text-blue-950 hover:bg-blue-950 hover:text-white '>
-//     <i className='fa-regular fa-user text-2xl '></i>
-//     <i className={`fa-solid 
-//         ${showDown? "fa-angle-up": "fa-angle-down"}`}></i>
-// </div>
+                        {/* User Authentication */}
+                        {currentUser?.role == "user" ? (
+                            <div className='flex items-center space-x-4'>
+                                {/* Chat Icon */}
+                                <Link
+                                    to={'/chats'}
+                                    className='text-gray-600 hover:text-blue-600 transition duration-200 p-2'
+                                >
+                                    <i className='fa-regular fa-comment text-xl'></i>
+                                </Link>
+                                
+                                {/* User Dropdown */}
+                                <UserDropdown 
+                                    currentUser={currentUser} 
+                                    handleLogout={handleLogout} 
+                                    handleDropDown={handleDropDown}
+                                />
+                            </div>
+                        ) : (
+                            <div className='hidden md:flex items-center space-x-4'>
+                                <Link
+                                    to={'/login'}
+                                    className='text-gray-700 hover:text-blue-600 font-medium transition duration-200'
+                                >
+                                    Login
+                                </Link>
+                                <Link
+                                    to={'/register'}
+                                    className='text-gray-700 hover:text-blue-600 font-medium transition duration-200'
+                                >
+                                    Register
+                                </Link>
+                            </div>
+                        )}
 
-// <div className={`flex  flex-col absolute transition-all
-//           top-10 ease-in-out  duration-500  bg-blue-50 md:left-0 left-[50px]
-// ${showDown 
-//   ? "opacity-100 translate-y-0 visible scale-100" 
-//   : "opacity-0 -translate-y-2 invisible scale-95"}
+                        {/* Mobile Menu Button */}
+                        <button
+                            onClick={() => SetBar(!showBar)}
+                            className='md:hidden text-gray-600 hover:text-blue-600 p-2'
+                        >
+                            <i className='fa-solid fa-bars text-xl'></i>
+                        </button>
+                    </div>
+                </div>
 
-         
-//             `}>
-// <Link className='p-1 hover:bg-blue-950 hover:text-white'>Home</Link>
-// <Link className='p-1 hover:bg-blue-950 hover:text-white'>Login</Link>
+                {/* Mobile Menu */}
+                <div className={`md:hidden transition-all duration-300 ease-in-out bg-white border-t border-gray-200
+                    ${showBar ? 'max-h-96 opacity-100 py-4' : 'max-h-0 opacity-0 overflow-hidden'}`}
+                >
+                    <div className='flex flex-col space-y-4 px-2'>
+                        
+                        
 
-// <Link className='p-1 hover:bg-blue-950 hover:text-white'>Sell</Link>
-//          </div>
-
-//         </div>
-
-(<>
-<Link
-to={'/login'}
-onClick={() => { SetBar(false) }}
-className='p-1 text-lg font-medium md:hover:bg-transparent md:hover:text-blue-950 hover:bg-blue-950 hover:text-white'>Login</Link>
-<Link
-to={'/register'}
-onClick={() => { SetBar(false) }}
-className='p-1 text-lg font-medium md:hover:bg-transparent md:hover:text-blue-950 hover:bg-blue-950 hover:text-white'>Register</Link>
-</>
-)
-        }
-  <Link  onClick={()=>{SetBar(false)}} className='p-1 hover:bg-blue-950 hover:text-white md:hover:text-blue-900 md:hover:bg-transparent' to={'/sellproduct'}    > 
-                <button className='border-3 px-4 py-1 rounded-3xl text-xl'><i className='fa-solid fa-plus'></i>Sell </button>
-                 </Link>
+                        {/* Mobile Auth Links for non-logged in users */}
+                        {!currentUser && (
+                            <>
+                                <Link
+                                    to={'/login'}
+                                    onClick={() => SetBar(false)}
+                                    className='text-gray-700 hover:text-blue-600 py-2 border-t border-gray-200 pt-4'
+                                >
+                                    Login
+                                </Link>
+                                <Link
+                                    to={'/register'}
+                                    onClick={() => SetBar(false)}
+                                    className='text-gray-700 hover:text-blue-600 py-2'
+                                >
+                                    Register
+                                </Link>
+                            </>
+                        )}
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
-  )
+    )
 }

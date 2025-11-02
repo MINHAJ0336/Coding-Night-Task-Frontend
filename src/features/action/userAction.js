@@ -4,7 +4,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 export const getprofile = createAsyncThunk('getProfile', async (data, { rejectWithValue }) => {
     // const dispatch = useDispatch()
     try {
-        const response = await fetch('https://swapy-backend.vercel.app/user/profile', {
+        const response = await fetch('http://localhost:5000/user/profile', {
           method:"Get",
             credentials: "include"
         });
@@ -26,7 +26,7 @@ export const getprofile = createAsyncThunk('getProfile', async (data, { rejectWi
 export const createProduct = createAsyncThunk('createProduct', async (data, { rejectWithValue }) => {
     try {
         // console.log(data)
-        const response = await fetch('https://swapy-backend.vercel.app/user/product', {
+        const response = await fetch('http://localhost:5000/user/product', {
             method: "POST",
 
             body: data,
@@ -49,7 +49,7 @@ export const updateProfile = createAsyncThunk('updateProfile', async (data, { re
 
     try {
         // console.log(data)
-        const response = await fetch('https://swapy-backend.vercel.app/user/profile', {
+        const response = await fetch('http://localhost:5000/user/profile', {
             method: "POST",
             body: data,
             credentials:"include"
@@ -71,7 +71,7 @@ export const updateProfile = createAsyncThunk('updateProfile', async (data, { re
 export const getMyProducts = createAsyncThunk('getMyProducts', async (data, { rejectWithValue }) => {
     // const dispatch = useDispatch()
     try {
-        const response = await fetch('https://swapy-backend.vercel.app/user/myproducts', {
+        const response = await fetch('http://localhost:5000/user/myproducts', {
           method:"Get",
             credentials: "include"
         });
@@ -94,7 +94,7 @@ export const updateMyProduct = createAsyncThunk('updateMyProduct', async (data, 
 
     try {
         // console.log(data)
-        const response = await fetch(`https://swapy-backend.vercel.app/user/product/${data.id}`, {
+        const response = await fetch(`http://localhost:5000/user/product/${data.id}`, {
             method: "Put",
             body: data.formData,
             credentials:"include"
@@ -116,7 +116,7 @@ export const updateMyProduct = createAsyncThunk('updateMyProduct', async (data, 
 export const getMyFavourite = createAsyncThunk('getMyFavourite', async (data, { rejectWithValue }) => {
     // const dispatch = useDispatch()
     try {
-        const response = await fetch('https://swapy-backend.vercel.app/user/favourite', {
+        const response = await fetch('http://localhost:5000/user/favourite', {
           method:"Get",
             credentials: "include"
         });
@@ -138,7 +138,7 @@ export const getMyFavourite = createAsyncThunk('getMyFavourite', async (data, { 
 export const IsFavProduct = createAsyncThunk('favProduct', async (data, { rejectWithValue }) => {
     try {
         // console.log(data)
-        const response = await fetch(`https://swapy-backend.vercel.app/user/favourite/${data}`, {
+        const response = await fetch(`http://localhost:5000/user/favourite/${data}`, {
             method: "POST",
             credentials:"include"
         }

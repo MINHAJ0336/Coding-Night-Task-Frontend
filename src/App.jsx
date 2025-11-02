@@ -5,125 +5,68 @@ import UserLayout from './Layouts/userLayout'
 import Home from './pages/user/Home'
 import Login from './pages/Auth/login'
 import Register from './pages/Auth/register'
-import Chats from './pages/user/chats'
-import ProductListing from './pages/user/ProductListing'
 import Profile from './pages/user/Profile'
-import DetailPage from './pages/user/detailPage'
 import ForgotPassword from './pages/Auth/forgotPassword'
 import OtpVerification from './pages/Auth/OtpVerification'
-
-import SellProduct from './pages/user/AddProduct'
-import AdminLayout from './Layouts/adminLayout'
-import Dashboard from './pages/admin/dashboard'
-import ManageProducts from './pages/admin/product'
-
-import Category from './pages/admin/category'
-
-import User from './pages/admin/user'
+import SellProduct from './pages/user/AddMedicalRecord'
+import DoctorDashboard from './pages/user/doctorsteam'
 import ResetPassword from './pages/Auth/resetPassword'
 import ProtectedRoute from './component/common/ProtectedRoute'
 import { ToastContainer } from 'react-toastify'
 import Loader from './component/common/loader'
-import MyAds from './pages/user/myAds'
-import ManageProfile from './pages/user/ManageProfile'
-import NavBar from './component/user/NavBar'
-import UserDropdown from './component/user/userDropDown'
 import Nav from './component/user/Nav'
-import MyFavourite from './pages/user/MyFavourite'
-
-
+import MedicalReportsList from './component/medical/MedicalReportsList';
+import MedicalReportAnalysis from './component/medical/MedicalReportAnalysis';
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-
       <Routes>
-          <Route path='/nav' element={<Nav />} />
+        <Route path='/nav' element={<Nav />} />
         <Route path='/' element={<UserLayout />}>
-        
+
           <Route path='login' element={<Login />} />
           <Route index element={<Home />} />
           <Route path='forgotpassword' element={<ForgotPassword />} />
           <Route path='Otp/:email' element={<OtpVerification />} />
           <Route path='register' element={<Register />} />
           <Route path='resetpassword/:email/:otp' element={<ResetPassword />} />
-<Route path="productlisting/:id?" element={<ProductListing />} />
+          <Route path="doctors-team" element={<DoctorDashboard />} />
+          <Route path="/medical-reports" element={<MedicalReportsList />} />
+          <Route path="/medical-report/:reportId" element={<MedicalReportAnalysis />} />
+          <Route path='sellproduct' element={
+            <ProtectedRoute requiredRole={["user"]}>
 
-          <Route path='myads/' element={
-            <ProtectedRoute>
-
-            <MyAds />
-            </ProtectedRoute> 
-            } />
-
-          <Route path='myfavourite/' element={
-            <ProtectedRoute>
-
-            <MyFavourite />
-            </ProtectedRoute> 
-            } />
-
-          <Route path='manage-profile/' element={
-            <ProtectedRoute>
-
-            <ManageProfile />
-            </ProtectedRoute> 
-            } />
-          <Route path='detailpage/:id' element={<DetailPage />} />
-
-
-            <Route path='sellproduct' element={
-                        <ProtectedRoute requiredRole={["user"]}>
-
-                <SellProduct />
-              </ProtectedRoute>
-              } />
-
-            <Route path='public-profile/:id' element={
-                       
-                <Profile />
-
-              } />
-          
-
-            {/* <Route path='profile' element={
-                        <ProtectedRoute requiredRole={["user"]}>  
-
-                <Profile />
-              </ProtectedRoute>
-              } /> */}
-          
-
-
-
-        <Route path='chats' element={
-          <ProtectedRoute requiredRole={["user"]}>
-          <Chats />
-</ProtectedRoute>
+              <SellProduct />
+            </ProtectedRoute>
           } />
-          </Route>
 
-<Route path='/loader' element={<Loader/>} >
+          <Route path='public-profile/:id' element={
+
+            <Profile />
+
+          } />
 
 
-</Route>
-  
-  
 
-<Route
-  path="/admin"
-  element={
-    <ProtectedRoute requiredRole="admin">
-      <AdminLayout />
-    </ProtectedRoute>
-  }
->
-  <Route index element={<Dashboard />} />
-  <Route path="products" element={<ManageProducts />} />
-  <Route path="categories" element={<Category />} />
-  <Route path="users" element={<User />} />
-</Route>
+
+          <Route path='chats' element={
+            <ProtectedRoute requiredRole={["user"]}>
+
+            </ProtectedRoute>
+          } />
+        </Route>
+
+        <Route path='/loader' element={<Loader />} >
+
+
+        </Route>
+
+
+
+        <Route>
+        </Route>
       </Routes>
     </>
   )

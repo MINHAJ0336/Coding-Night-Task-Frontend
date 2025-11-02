@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { categories } from '../../utils/categories';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAllUserCategories } from '../../features/action/productAction';
+// import { getAllUserCategories } from '../../features/action/productAction';
 import { useDispatch, useSelector } from 'react-redux';
 
 export default function FilterBar({ gridView, setGridView, handleCategorySearch }) {

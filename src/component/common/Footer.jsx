@@ -7,7 +7,7 @@ export default function Footer() {
      
 
         <Link className="flex items-center " to={'/'}>
-<p className='text-xl font-medium'>Swapy</p>
+<p className='text-xl font-medium'>Hospital Managment System</p>
           
         </Link>
         © 2025
