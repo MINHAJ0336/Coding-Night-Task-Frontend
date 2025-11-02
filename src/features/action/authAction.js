@@ -4,7 +4,7 @@ export const login= createAsyncThunk('Login', async (data, {rejectWithValue})=>{
 
          try {
         // console.log(data)
-        const response = await fetch('http://localhost:5000/login', {
+        const response = await fetch('https://coding-night-task-backend.vercel.app/login', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export const RegisterUser= createAsyncThunk('Register', async (data, {rejectWith
 
          try {
         // console.log(data)
-        const response = await fetch('http://localhost:5000/register', {
+        const response = await fetch('https://coding-night-task-backend.vercel.app/register', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export const forgotPassword = createAsyncThunk(
     try {
       // console.log(data);
 
-      const response = await fetch("http://localhost:5000/forgotpassword", {
+      const response = await fetch("https://coding-night-task-backend.vercel.app/forgotpassword", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export const forgotPassword = createAsyncThunk(
 export const verifyOtp= createAsyncThunk('verifyOtp', async(data, {rejectWithValue})=>{
          try {
         // console.log(data)
-        const response = await fetch('http://localhost:5000/verifyotp', {
+        const response = await fetch('https://coding-night-task-backend.vercel.app/verifyotp', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -110,7 +110,7 @@ export const verifyOtp= createAsyncThunk('verifyOtp', async(data, {rejectWithVal
 export const reSetPassword= createAsyncThunk('reSetPassword', async(data, {rejectWithValue})=>{
          try {
         // console.log(data)
-        const response = await fetch('http://localhost:5000/resetpassword', {
+        const response = await fetch('https://coding-night-task-backend.vercel.app/resetpassword', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -139,7 +139,7 @@ export const reSetPassword= createAsyncThunk('reSetPassword', async(data, {rejec
 export const logout= createAsyncThunk('logout', async(data, {rejectWithValue})=>{
          try {
         // console.log(data)
-        const response = await fetch('http://localhost:5000/logout', {
+        const response = await fetch('https://coding-night-task-backend.vercel.app/logout', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -164,7 +164,7 @@ export const logout= createAsyncThunk('logout', async(data, {rejectWithValue})=>
 export const checkUser= createAsyncThunk('checkUser', async(data, {rejectWithValue})=>{
          try {
 
-        const response = await fetch('http://localhost:5000/authMe', {
+        const response = await fetch('https://coding-night-task-backend.vercel.app/authMe', {
             method: "GET",
                         credentials: "include",
 

@@ -19,7 +19,7 @@ export const uploadMedicalReport = createAsyncThunk('medicalReports/upload', asy
         }
 
         // ✅ CORRECTED URL - /api/health add karo
-        const response = await fetch('http://localhost:5000/medical-reports', {
+        const response = await fetch('https://coding-night-task-backend.vercel.app/medical-reports', {
             method: 'POST',
             credentials: 'include',
             body: formData,
@@ -41,7 +41,7 @@ export const uploadMedicalReport = createAsyncThunk('medicalReports/upload', asy
 export const getMedicalReports = createAsyncThunk('medicalReports/getAll', async (data, { rejectWithValue }) => {
     try {
         // ✅ CORRECTED URL
-        const response = await fetch('http://localhost:5000/api/health/medical-reports', {
+        const response = await fetch('https://coding-night-task-backend.vercel.app/api/health/medical-reports', {
             method: 'GET',
             credentials: 'include'
         });
@@ -62,7 +62,7 @@ export const getMedicalReports = createAsyncThunk('medicalReports/getAll', async
 export const getMedicalReportById = createAsyncThunk('medicalReports/getById', async (id, { rejectWithValue }) => {
     try {
         // ✅ CORRECTED URL
-        const response = await fetch(`http://localhost:5000/api/health/medical-reports/${id}`, {
+        const response = await fetch(`https://coding-night-task-backend.vercel.app/api/health/medical-reports/${id}`, {
             method: 'GET',
             credentials: 'include'
         });
@@ -84,7 +84,7 @@ export const getMedicalReportById = createAsyncThunk('medicalReports/getById', a
 export const getMedicalReportAnalysis = createAsyncThunk('medicalReports/analysis', async (id, { rejectWithValue }) => {
     try {
         // ✅ CORRECTED URL
-        const response = await fetch(`http://localhost:5000/api/health/medical-reports/${id}/analysis`, {
+        const response = await fetch(`https://coding-night-task-backend.vercel.app/api/health/medical-reports/${id}/analysis`, {
             method: 'GET',
             credentials: 'include'
         });
@@ -106,7 +106,7 @@ export const getMedicalReportAnalysis = createAsyncThunk('medicalReports/analysi
 export const addHealthVitals = createAsyncThunk('healthVitals/add', async (data, { rejectWithValue }) => {
     try {
         // ✅ CORRECTED URL
-        const response = await fetch('http://localhost:5000/api/health/health-vitals', {
+        const response = await fetch('https://coding-night-task-backend.vercel.app/api/health/health-vitals', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -139,7 +139,7 @@ export const getHealthVitals = createAsyncThunk('healthVitals/getAll', async (fi
         });
 
         // ✅ CORRECTED URL
-        const response = await fetch(`http://localhost:5000/api/health/health-vitals?${queryParams}`, {
+        const response = await fetch(`https://coding-night-task-backend.vercel.app/api/health/health-vitals?${queryParams}`, {
             method: 'GET',
             credentials: 'include'
         });
@@ -160,7 +160,7 @@ export const getHealthVitals = createAsyncThunk('healthVitals/getAll', async (fi
 export const getHealthVitalById = createAsyncThunk('healthVitals/getById', async (id, { rejectWithValue }) => {
     try {
         // ✅ CORRECTED URL
-        const response = await fetch(`http://localhost:5000/api/health/health-vitals/${id}`, {
+        const response = await fetch(`https://coding-night-task-backend.vercel.app/api/health/health-vitals/${id}`, {
             method: 'GET',
             credentials: 'include'
         });
@@ -182,7 +182,7 @@ export const getHealthVitalById = createAsyncThunk('healthVitals/getById', async
 export const getHealthDashboard = createAsyncThunk('health/dashboard', async (data, { rejectWithValue }) => {
     try {
         // ✅ CORRECTED URL
-        const response = await fetch('http://localhost:5000/api/health/dashboard', {
+        const response = await fetch('https://coding-night-task-backend.vercel.app/api/health/dashboard', {
             method: 'GET',
             credentials: 'include'
         });
